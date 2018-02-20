@@ -1,0 +1,261 @@
+---
+title: "Assignment 0"
+author: "Satyajit Nandi"
+date: "February 20, 2018"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+#### **ToDo** (3.1)
+Compute the difference between 2018 and the year you started at this university and divide this by the difference between 2014 and the year you were born. Multiply this with 100 to get the percentage of your life you have spent at this university. Use brackets if you need them.
+
+```
+Calculating percent spent at the university
+```
+
+$$ PercentofLifeinCollege = (CollegeYears / Age) * 100 $$
+
+```{r}
+((2018-2017)/(2018-1983))*100
+
+```
+
+#### **ToDo** (3.2)
+Repeat the previous ToDo(3.1), but with several stps in between. You can give the variables any name you want, but the name has to start with letter.
+
+```{r}
+PresentTime = 2018
+Born = 1983
+SchoolStart = 2017
+
+((PresentTime - SchoolStart)/(PresentTime - Born))*100
+```
+#### **ToDo** (3.4)
+Compute the sum of 4,5,8 and 11 by first combining them into a vector and then using the function sum.
+
+```{r}
+4+5+8+11
+```
+Using function we can computer as follows:
+
+```{r}
+a=c(4,5,8,11)
+sum(a)
+
+```
+Note that, here c is a function which is short for concatenate. 
+
+
+#### **ToDo** (3.5)
+Plot 100 normal random numbers
+
+```{r}
+plot(rnorm(100))
+
+```
+
+#### **ToDo** (4)
+Find help for the sqrt function
+
+```{r}
+help("sqrt")
+```
+or another way to get help:
+
+```{r}
+?sqrt
+```
+
+
+#### **ToDo** (5)
+Make a file called *firstscript.R* containing R-code that generates 100 random numbers and plots them, and run this script several times.
+
+First to save R script names as *firstscript.R* into the R working directory.
+```
+plot(rnorm(100))
+```
+To run this script in R:
+
+```{r}
+source("firstscript.R")
+```
+To run this script multiple times we can press **Ctrl+Alt+s**.
+
+#### **ToDo** (6.2)
+Put the numbers 31 to 60 in a vector named P and in a matrix with 6 rows and 5 columns named Q.
+```{r}
+P = seq(from=31, to=60)
+#Printing result P
+P
+Q = matrix(data = P, nrow = 6, ncol = 5)
+#printing result Q
+Q
+```
+
+#### **ToDo** (6.3) & (7)
+Make a script file which constructs three random normal vectors of length 100. Call these vectors x1, x2, and x3. Make a data frame called t with three colums (called a, b, and c) containing respectively x1, x1+x2 and x1+x2+x3. Call plot(t) for this data frame.
+
+``` {r}
+# constructs three random normal vectors of lenth 100
+x1=rnorm(100)
+x2=rnorm(100)
+x3=rnorm(100)
+
+# Call these variables
+x1
+x2
+x3
+
+# Make a data frame with three columns
+
+t = data.frame(a = x1, b = (x1+x2), c = (x1+x2+x3))
+
+# Call plot(t)
+
+plot(t)
+
+# call sd(t)
+
+sd(t$a)
+sd(t$b)
+sd(t$c)
+
+```
+
+#### **ToDo** (7)
+Make graphics of the previous data
+
+``` {r echo=FALSE}
+# constructs three random normal vectors of lenth 100
+x1=rnorm(100)
+x2=rnorm(100)
+x3=rnorm(100)
+
+t = data.frame(a = x1, b = (x1+x2), c = (x1+x2+x3))
+
+#Generating graphics of the previous script
+
+plot(t$a, type = "l", ylim = range(t), lwd=3, col=rgb(1,0,0,0.3))
+lines(t$b, type="s", lwd=2, col=rgb(0.3, .4, .3, .9))
+points(t$c, pch=20, cex=4, col=rgb(0,0,1,.3))
+
+```
+```
+**rgb** function creats colors corresponding to the given intensities of the red, green and blue primatirs.
+Usage: rgb(red, green, blue, alpha, names = NULL, maxColorValue=1)
+
+**lwd** is the line width, a positive nummber, defaulting to 1.
+
+**pch** is plotting 'character', i.e., symbol to use. Either an integer specifying a symbol or a single character to be used as the defalt in plotting points.
+
+**cex** A numerical value giving the amount by which plotting text and symbols should be magnified relative to the default. This starts as 1 when a device is opened, and is rest when the layout is changed. 
+```
+#### **ToDo** (8)
+
+```{r}
+# setting up data frame
+d = data.frame(a=c(1,2,3,4,16,32), g=c(2,3,4,16,32,64), x=c(3,6,12,24,48,96))
+
+# writing into file names tst1.txt
+write.table(d, file="tst1.txt", row.names = FALSE)
+
+#reading from file tst1.txt
+d2=read.table(file="tst1.txt", header = TRUE)
+
+# printing d2
+d2
+
+#multiplying column g by 5 and write into a file named tst2.txt
+write.table(d2$g*5, file = "tst2.txt", row.names = FALSE, col.names = "g")
+
+```
+
+#### **ToDo** (9)
+Compute the mean of the square root of a vector of 100 random numbers. What happens?
+
+```{r}
+mean(sqrt(rnorm(100)))
+
+```
+This will not work. This is because rnorm produces numbers that doesn't have a proper square root (NaNs). The square root of negative number is only possible in complex number.
+
+#### **ToDo** (10.2)
+Make a graph with on the x-axis: today, Sinterklass 2017 and your next birthday and on the y-axis the number of presentes you expect on each of these days.
+
+```{r}
+date1=strptime(c("20180220", "20171225", "20181212"), format="%Y%m%d")
+present=c(12, 15, 20)
+plot(date1,present, type="p", pch=15, cex=2, col=rgb(0.5,.8,.2,1))
+
+```
+
+#### **ToDo** (11.2)
+Make a vector from 1 to 100. Make a for-loop which runs through the whole vector. Multiply the elements which are smallar than 5 and larger than 90 with 10 and the other elements with 0.1
+
+```{r}
+# defining variable from 1 to 100 and empty result variable
+var1 = seq(from=1, to=100)
+result = c()
+
+# for-loop
+for (i in var1)
+    {
+     if (i<5 | i>90) # elements are smallar than5 and larger than 90
+       {result[i] = var1[i] * 10}
+     else { result[i] =var1[i] * 0.1}
+    }
+# viewing result
+result
+```
+
+#### **ToDo** (11.3)
+Write a function for the previous ToDo, so that you can feed it any vector you like (as argument). Use a for-loop in the function to do the computation with each element. Use the standard R function length in the specification of the counter.
+
+```{r}
+
+myfunc = function(arg1)
+{
+	b = length(arg1) #defining length of the argument
+	for (i in 1:b)
+	{
+		if(arg1[i]<5 | arg1[i]>90) #creating condition
+			{
+				arg1[i]=arg1[i]*10
+			}
+		else
+			{
+				arg1[i]=arg1[i]*0.1
+			}
+	}
+	return(arg1)
+}
+
+#calling the function
+myfunc(arg1=1:100) # or, myfunc(1:100)
+
+```
+
+```{r}
+#alternate way to making the same function
+
+myfunc=function(arg1)
+{
+  ifelse(arg1<5 | arg1>5, arg1*10, arg1*0.1)
+}
+
+myfunc(1:100)
+```
+
+
+
+
+
+
+
+
+
+
+
+
